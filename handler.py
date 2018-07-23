@@ -1,12 +1,19 @@
+from __future__ import print_function
+
 import json
 
 import aws_interface
+import influxdb_interface
 
-def hello(event, context):
-    instances = aws_interface.get_number_of_instances()
+
+def get_instance_totals_event(event, context):
+    influxdb_hostname = event.get("influxdb_hostname")
+    tag_name = event.get("tag_name")
+    tag_value = event.get("tag_value")
+    instance_totals = aws_interface.get_number_of_instances(tag_name, tag_value)
+    influxdb_interface.add_datum("Number of EC2 instances", instance_totals, {tag_name: tag_value}, influxdb_hostname)
     body = {
-        "message": "Go Serverless v1.0! Your function executed successfully!"
-                   " Number of ec2 instances are {}".format(instances),
+        "message": {"Name":  "Total number of instances", "value": instance_totals},
         "input": event
     }
 
@@ -16,15 +23,3 @@ def hello(event, context):
     }
 
     return response
-
-    # Use this code if you don't use the http event with the LAMBDA-PROXY
-    # integration
-    """
-    return {
-        "message": "Go Serverless v1.0! Your function executed successfully!",
-        "event": event
-    }
-    """
-
-
-hello("something","something_else")
