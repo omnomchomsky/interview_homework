@@ -17,3 +17,17 @@ Fork this repo to your personal GitHub account.  After you have completed your f
 2.  AWS Account
 3.  Docker
 
+# My Solution:
+
+Learned about the serverless framework to help do AWS Lambda in a very iterable way. https://serverless.com/
+Got a simple serverless Hello World working
+    Created AWS Keypair
+    Witnessed creation of AWS Lambda from using serverless framework
+    Tested URL returned from serverless to verify correctness
+Created an aws_interface file to seperate function domains
+Added simple logic using boto3 to count all ec2 instances
+Verified it works locally
+Updated IAM permissions for the role associated with the lambda
+Verified that lambda now properly returns number of servers
+Added filter logic to aws_interface
+Added tag logic to influxdb_interface
