@@ -3,3 +3,5 @@
 .serverless
 venv/
 __*
+package-lock.json
+*.swp
